@@ -210,7 +210,8 @@ void amf_nf_state_registered(ogs_fsm_t *s, amf_event_t *e)
             }
 
             ogs_nnrf_nfm_send_nf_status_subscribe(client,
-                    amf_self()->nf_type, nf_instance->id);
+                    amf_self()->nf_type, nf_instance->id,
+                    OpenAPI_nf_type_NULL);
         }
 
         break;

@@ -417,7 +417,8 @@ void pcf_state_operational(ogs_fsm_t *s, pcf_event_t *e)
             ogs_sbi_subscription_remove(subscription);
 
             ogs_nnrf_nfm_send_nf_status_subscribe(subscription->client,
-                    pcf_self()->nf_type, subscription->req_nf_instance_id);
+                    pcf_self()->nf_type, subscription->req_nf_instance_id,
+                    subscription->subscr_cond.nf_type);
             break;
 
         case PCF_TIMER_SBI_CLIENT_WAIT:

@@ -331,7 +331,8 @@ void ausf_state_operational(ogs_fsm_t *s, ausf_event_t *e)
             ogs_sbi_subscription_remove(subscription);
 
             ogs_nnrf_nfm_send_nf_status_subscribe(subscription->client,
-                    ausf_self()->nf_type, subscription->req_nf_instance_id);
+                    ausf_self()->nf_type, subscription->req_nf_instance_id,
+                    subscription->subscr_cond.nf_type);
             break;
 
         case AUSF_TIMER_SBI_CLIENT_WAIT:

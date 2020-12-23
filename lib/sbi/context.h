@@ -184,6 +184,10 @@ typedef struct ogs_sbi_subscription_s {
     OpenAPI_nf_status_e nf_status;
     char *notification_uri;
 
+    struct {
+        OpenAPI_nf_type_e nf_type;      /* nfType */
+    } subscr_cond;
+
     void *client;                       /* only used in SERVER */
 } ogs_sbi_subscription_t;
 

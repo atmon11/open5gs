@@ -367,7 +367,8 @@ void udm_state_operational(ogs_fsm_t *s, udm_event_t *e)
             ogs_sbi_subscription_remove(subscription);
 
             ogs_nnrf_nfm_send_nf_status_subscribe(subscription->client,
-                    udm_self()->nf_type, subscription->req_nf_instance_id);
+                    udm_self()->nf_type, subscription->req_nf_instance_id,
+                    subscription->subscr_cond.nf_type);
             break;
 
         case UDM_TIMER_SBI_CLIENT_WAIT:
