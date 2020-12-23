@@ -378,6 +378,10 @@ static void sbi_message_test4(abts_case *tc, void *data)
     ABTS_INT_EQUAL(tc, 0, tm.tm_gmtoff);
     ABTS_TRUE(tc, t == 851042397000000);
 
+    tm.tm_mday = 19;
+    tm.tm_hour = 16;
+    tm.tm_gmtoff = -28800;
+
     rc = ogs_sbi_time_from_string(&t, "1996-12-19T16:39:57-08:00");
     ABTS_INT_EQUAL(tc, 1, rc);
 
@@ -463,6 +467,23 @@ static void sbi_message_test4(abts_case *tc, void *data)
     ABTS_TRUE(tc, t == 536499627870000);
 }
 
+static void sbi_message_test5(abts_case *tc, void *data)
+{
+    char *str = NULL;
+
+    str = ogs_sbi_timezone_string(-18000);
+    ABTS_STR_EQUAL(tc, "-05:00", str);
+    ogs_free(str);
+
+    str = ogs_sbi_timezone_string(28800);
+    ABTS_STR_EQUAL(tc, "+08:00", str);
+    ogs_free(str);
+
+    str = ogs_sbi_timezone_string(0);
+    ABTS_STR_EQUAL(tc, "+00:00", str);
+    ogs_free(str);
+}
+
 abts_suite *test_sbi_message(abts_suite *suite)
 {
     suite = ADD_SUITE(suite)
@@ -471,6 +492,7 @@ abts_suite *test_sbi_message(abts_suite *suite)
     abts_run_test(suite, sbi_message_test2, NULL);
     abts_run_test(suite, sbi_message_test3, NULL);
     abts_run_test(suite, sbi_message_test4, NULL);
+    abts_run_test(suite, sbi_message_test5, NULL);
 
     return suite;
 }
