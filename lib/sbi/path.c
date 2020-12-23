@@ -196,6 +196,7 @@ void ogs_nnrf_nfm_send_nf_status_subscribe(ogs_sbi_client_t *client,
     subscription->req_nf_type = req_nf_type;
     if (req_nf_instance_id)
         subscription->req_nf_instance_id = ogs_strdup(req_nf_instance_id);
+    subscription->subscr_cond.nf_type = subscr_cond_nf_type;
 
     request = ogs_nnrf_nfm_build_status_subscribe(subscription);
     ogs_assert(request);

@@ -341,6 +341,7 @@ ogs_sbi_request_t *ogs_nnrf_nfm_build_status_subscribe(
     ogs_sbi_server_t *server = NULL;
 
     OpenAPI_subscription_data_t *SubscriptionData = NULL;
+    OpenAPI_subscription_data_subscr_cond_t SubscrCond;
 
     ogs_assert(subscription);
     ogs_assert(subscription->req_nf_type);
@@ -369,6 +370,12 @@ ogs_sbi_request_t *ogs_nnrf_nfm_build_status_subscribe(
 
 	SubscriptionData->req_nf_type = subscription->req_nf_type;
     SubscriptionData->req_nf_instance_id = subscription->req_nf_instance_id;
+
+    memset(&SubscrCond, 0, sizeof(SubscrCond));
+    if (subscription->subscr_cond.nf_type) {
+        SubscrCond.nf_type = subscription->subscr_cond.nf_type;
+        SubscriptionData->subscr_cond = &SubscrCond;
+    }
 
     message.SubscriptionData = SubscriptionData;
 
