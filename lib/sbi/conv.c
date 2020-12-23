@@ -316,6 +316,48 @@ bool ogs_sbi_time_from_string(ogs_time_t *timestamp, char *str)
     return true;
 }
 
+bool ogs_sbi_time_from_string2(ogs_time_t *timestamp, char *str)
+{
+    int rv, i, j, k;
+    struct tm tm;
+    bool is_seconds;
+    char seconds[MAX_TIMESTR_LEN];
+    char subsecs[MAX_TIMESTR_LEN];
+    ogs_time_t usecs;
+
+    ogs_assert(str);
+    ogs_assert(timestamp);
+
+    memset(seconds, 0, sizeof seconds);
+    memset(subsecs, 0, sizeof subsecs);
+
+    is_seconds = true;
+    i = 0; j = 0, k = 0;
+    while(str[i]) {
+        if (is_seconds == true && str[i] == '.')
+            is_seconds = false;
+        else if (is_seconds == false && (str[i] < '0' || str[i] > '9'))
+            is_seconds = true;
+
+        if (is_seconds == true) seconds[j++] = str[i];
+        else subsecs[k++] = str[i];
+
+        i++;
+    }
+
+    memset(&tm, 0, sizeof(tm));
+    ogs_strptime(seconds, "%Y-%m-%dT%H:%M:%S%z", &tm);
+    usecs = (ogs_time_t)(atof(subsecs) * 1000000);
+
+    rv = ogs_time_from_gmt(timestamp, &tm, usecs);
+    if (rv != OGS_OK) {
+        ogs_error("Cannot convert time [%s]", str);
+        return false;
+    }
+
+    return true;
+}
+
 char *ogs_sbi_s_nssai_to_string(ogs_s_nssai_t *s_nssai)
 {
     cJSON *item = NULL;
