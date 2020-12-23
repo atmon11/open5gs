@@ -179,8 +179,8 @@ typedef struct ogs_sbi_subscription_s {
     ogs_timer_t *t_validity;            /* check validation */
 
     char *id;                           /* SubscriptionId */
-    char *nf_instance_id;               /* NFInstanceId */
-    OpenAPI_nf_type_e nf_type;
+    char *req_nf_instance_id;           /* reqNfInstanceId */
+    OpenAPI_nf_type_e req_nf_type;      /* reqNfType */
     OpenAPI_nf_status_e nf_status;
     char *notification_uri;
 

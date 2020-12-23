@@ -343,7 +343,7 @@ ogs_sbi_request_t *ogs_nnrf_nfm_build_status_subscribe(
     OpenAPI_subscription_data_t *SubscriptionData = NULL;
 
     ogs_assert(subscription);
-    ogs_assert(subscription->nf_type);
+    ogs_assert(subscription->req_nf_type);
 
     memset(&message, 0, sizeof(message));
     message.h.method = (char *)OGS_SBI_HTTP_METHOD_POST;
@@ -367,8 +367,8 @@ ogs_sbi_request_t *ogs_nnrf_nfm_build_status_subscribe(
                         ogs_sbi_server_uri(server, &header);
     ogs_assert(SubscriptionData->nf_status_notification_uri);
 
-	SubscriptionData->req_nf_type = subscription->nf_type;
-    SubscriptionData->req_nf_instance_id = subscription->nf_instance_id;
+	SubscriptionData->req_nf_type = subscription->req_nf_type;
+    SubscriptionData->req_nf_instance_id = subscription->req_nf_instance_id;
 
     message.SubscriptionData = SubscriptionData;
 

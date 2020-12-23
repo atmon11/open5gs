@@ -292,7 +292,7 @@ void udr_state_operational(ogs_fsm_t *s, udr_event_t *e)
             ogs_sbi_subscription_remove(subscription);
 
             ogs_nnrf_nfm_send_nf_status_subscribe(subscription->client,
-                    udr_self()->nf_type, subscription->nf_instance_id);
+                    udr_self()->nf_type, subscription->req_nf_instance_id);
             break;
 
         default:

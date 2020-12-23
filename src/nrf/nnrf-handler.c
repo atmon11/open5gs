@@ -147,7 +147,7 @@ bool nrf_nnrf_handle_nf_status_subscribe(
     ogs_assert(subscription->id);
 
     if (SubscriptionData->req_nf_instance_id)
-        subscription->nf_instance_id =
+        subscription->req_nf_instance_id =
             ogs_strdup(SubscriptionData->req_nf_instance_id);
 
     if (SubscriptionData->subscription_id) {
